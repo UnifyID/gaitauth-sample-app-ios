@@ -1,0 +1,34 @@
+PODS:
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
+  - lottie-ios (3.1.8)
+  - UnifyID-Core (4.3.0)
+  - UnifyID-GaitAuth (4.3.0):
+    - UnifyID-Core (~> 4.3.0)
+  - UnifyID/GaitAuth (4.3.0):
+    - UnifyID-GaitAuth (~> 4.3.0)
+
+DEPENDENCIES:
+  - Charts
+  - lottie-ios
+  - UnifyID/GaitAuth
+
+SPEC REPOS:
+  trunk:
+    - Charts
+    - lottie-ios
+    - UnifyID
+    - UnifyID-Core
+    - UnifyID-GaitAuth
+
+SPEC CHECKSUMS:
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  lottie-ios: 48fac6be217c76937e36e340e2d09cf7b10b7f5f
+  UnifyID: 288a02d20d7a10669071f140eebe5f29b03c3136
+  UnifyID-Core: dd1e9726374f87e801a33ad722779f21165c5352
+  UnifyID-GaitAuth: 12d038ee4a96787cd4ba804653c9297cdf253369
+
+PODFILE CHECKSUM: 7156d04311db11b39a94584da1178f9e945951f7
+
+COCOAPODS: 1.10.0.rc.1
