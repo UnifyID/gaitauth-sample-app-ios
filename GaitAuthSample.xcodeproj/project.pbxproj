@@ -44,6 +44,7 @@
 		98DE999724E34FCA003F8F0C /* UnifyIDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DE999624E34FCA003F8F0C /* UnifyIDManager.swift */; };
 		98DE999924E355FE003F8F0C /* BlockButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DE999824E355FE003F8F0C /* BlockButton.swift */; };
 		98DE999B24E35891003F8F0C /* FeatureBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DE999A24E35891003F8F0C /* FeatureBuffer.swift */; };
+		98FD020F2543569C00BBDC5F /* UnifyIDManager+LocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98FD020E2543569C00BBDC5F /* UnifyIDManager+LocationDelegate.swift */; };
 		E5C371EA73B6A86DA489D8E7 /* Pods_GaitAuthSample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 641C1E5879CF51F4C92E4DC1 /* Pods_GaitAuthSample.framework */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +90,7 @@
 		98DE999624E34FCA003F8F0C /* UnifyIDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnifyIDManager.swift; sourceTree = "<group>"; };
 		98DE999824E355FE003F8F0C /* BlockButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockButton.swift; sourceTree = "<group>"; };
 		98DE999A24E35891003F8F0C /* FeatureBuffer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureBuffer.swift; sourceTree = "<group>"; };
+		98FD020E2543569C00BBDC5F /* UnifyIDManager+LocationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifyIDManager+LocationDelegate.swift"; sourceTree = "<group>"; };
 		C16788B0B4C9AAE1D00D398F /* Pods_GaitAuthSample_GaitAuthSampleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GaitAuthSample_GaitAuthSampleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D75AB19A2241384C935892AC /* Pods-GaitAuthSample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GaitAuthSample.debug.xcconfig"; path = "Target Support Files/Pods-GaitAuthSample/Pods-GaitAuthSample.debug.xcconfig"; sourceTree = "<group>"; };
 		F229B67CBCD8C884553A0649 /* Pods-GaitAuthSample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GaitAuthSample.release.xcconfig"; path = "Target Support Files/Pods-GaitAuthSample/Pods-GaitAuthSample.release.xcconfig"; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				9898C8CE24F718FE00A3C2F6 /* UnifyIDManager+ModelRefresher.swift */,
 				9898C8D024F7198E00A3C2F6 /* UnifyIDManager+FeatureCollector.swift */,
 				98C1A08024E7A433003B07FB /* FakeFeatureGenerator.swift */,
+				98FD020E2543569C00BBDC5F /* UnifyIDManager+LocationDelegate.swift */,
 			);
 			path = UnifyID;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				9872631A24F5BABB00466120 /* ScoresViewController.swift in Sources */,
 				989E88BE24F4B3B10045F631 /* Lottie+Animating.swift in Sources */,
 				9832891924E24C590046C47A /* ColorCompatibility.swift in Sources */,
+				98FD020F2543569C00BBDC5F /* UnifyIDManager+LocationDelegate.swift in Sources */,
 				98B5B22524E7394F0006535C /* PendingViewController.swift in Sources */,
 				9872632024F6008E00466120 /* InteractionDelegate.swift in Sources */,
 				983288DF24E1D91C0046C47A /* HomeViewController.swift in Sources */,
@@ -433,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -494,6 +499,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";

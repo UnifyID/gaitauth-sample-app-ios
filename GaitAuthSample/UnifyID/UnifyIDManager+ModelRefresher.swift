@@ -7,18 +7,38 @@ import Foundation
 
 extension UnifyIDManager: ModelRefresher {
     func refreshModel() {
-        DispatchQueue.global().asyncAfter(deadline: .now() + TimeInterval.random(in: 0.5...2.0)) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        guard let model = model else {
+            interactor?.presentErrorAlert(
+                title: "Failed refreshing model",
+                message: "Model not set",
+                completion: nil
+            )
+            return
+        }
+
+        model.refresh { [weak self] result in
             DispatchQueue.main.async {
-                // guard let model = self.model else { return }
-                NotificationCenter.default.post(
-                    ModelDidRefreshNotification(
-                        sender: self,
-                        date: Date(),
-                        modelID: "136f2019-326e-48e5-90e9-129433f20f86",
-                        status: .training,
-                        changeType: .noChange
+                guard let self = self else { return }
+                switch result {
+                case .failure(let error):
+                    self.interactor?.presentErrorAlert(
+                        title: "Failed Refreshing Model",
+                        message: error.localizedDescription,
+                        completion: nil
                     )
-                )
+                    return
+                case .success(let changeType):
+                    NotificationCenter.default.post(
+                        ModelDidRefreshNotification(
+                            sender: self,
+                            date: Date(),
+                            modelID: model.id,
+                            status: model.status,
+                            changeType: changeType
+                        )
+                    )
+                }
                 self.refreshCount += 1
             }
         }

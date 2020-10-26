@@ -6,8 +6,16 @@
 import Foundation
 
 protocol Interactor: class {
-    func presentTraining(confirm: Bool)
+    func presentPending()
     func presentScores(_ scores: [(date: Date, score: Double)])
     func presentErrorAlert(title: String, message: String, completion: (() -> Void)?)
     func presentTerminalError(message: String)
+
+    func presentConfirmation(
+        title: String,
+        message: String?,
+        cancelTitle: String,
+        actionTitle: String,
+        completion: @escaping (Bool) -> Void
+    )
 }

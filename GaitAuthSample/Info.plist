@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Uses location to allow you to seamlessly authenticate when arriving at specific locations.</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -25,6 +23,8 @@
 	<key>NSFaceIDUsageDescription</key>
 	<string>Uses FaceID to assist with confirming the owner&apos;s identity before sensitive operations.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Uses location to allow GaitAuth to continuously authenticate you, even when the app is in the background.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Uses location to allow you to seamlessly authenticate when arriving at specific locations.</string>
 	<key>UIBackgroundModes</key>
 	<array>

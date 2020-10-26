@@ -14,13 +14,23 @@ class SelectModelViewController: UIViewController {
     }
 
     @IBAction func loadModel() {
-        presentConfirmation(
-            title: "Load",
-            message: "Simulate loading a model",
-            actionTitle: "Load"
-            ) { confirmed in
-                guard confirmed else { return }
-                self.delegate?.loadModel("92d0476f-7303-4958-aad9-da37c4af1bee")
+        presentSingleInputAlert(
+            title: "Load Model",
+            prompt: "Please enter a valid model id."
+        ) { [weak self] modelID in
+            guard let self = self else { return }
+            guard
+                let modelID = modelID?.trimmingCharacters(in: .whitespaces),
+                let modelUUID = UUID(uuidString: modelID)
+            else {
+                self.presentAlert(title: "Invalid Model ID") { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.loadModel()
+                    }
+                }
+                return
+            }
+            self.delegate?.loadModel(modelUUID.uuidString.lowercased())
         }
     }
 }

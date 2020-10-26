@@ -10,10 +10,11 @@ end
 
 post_install do |pi|
   pi.pods_project.targets.each do |t|
-    if ['Charts', 'lottie-ios'].include? t.name
-        t.build_configurations.each do |config|
+      t.build_configurations.each do |config|
+          config.build_settings.delete('IPHONEOS_DEPLOYMENT_TARGET')
+          if ['Charts', 'lottie-ios'].include? t.name
             config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'NO'
-        end
-    end
+          end
+      end
   end
 end

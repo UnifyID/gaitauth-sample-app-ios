@@ -10,7 +10,6 @@ class HomeViewController: EmbeddingViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         unifyid.interactor = self
-        modelStatusDidChange(unifyid.model?.status)
 
         NotificationCenter.default.addObserver(
             for: ActiveModelDidChangeNotification.self,
@@ -22,6 +21,12 @@ class HomeViewController: EmbeddingViewController {
             queue: .main,
             using: modelDidReset
         )
+
+        if let modelID = unifyid.modelID, modelID != unifyid.model?.id {
+            unifyid.loadModel(modelID)
+        } else {
+            modelStatusDidChange(unifyid.model?.status)
+        }
     }
 
     private func modelDidChange(_ notification: ActiveModelDidChangeNotification) {
@@ -113,23 +118,9 @@ extension HomeViewController {
 }
 
 extension HomeViewController: Interactor {
-    func presentTraining(confirm: Bool = true) {
+    func presentPending() {
         dispatchPrecondition(condition: .onQueue(.main))
-        guard confirm else {
-            self.showPendingVC()
-            return
-        }
-
-        presentConfirmation(
-            title: "Train Model",
-            message: "Are you sure you would like to begin training your model? This action cannot be reversed.",
-            actionTitle: "Confirm"
-        ) { confirmed in
-            dispatchPrecondition(condition: .onQueue(.main))
-            guard confirmed else { return }
-            self.showPendingVC()
-            return
-        }
+        self.showPendingVC()
     }
 
     func presentScores(_ scores: [(date: Date, score: Double)]) {

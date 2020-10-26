@@ -75,6 +75,7 @@ class TestingViewController: FeatureCollectionViewController {
 
     @IBAction func scoreCollectedFeatures() {
         dispatchPrecondition(condition: .onQueue(.main))
+        manager?.isCollectingFeatures = false
         manager?.scoreCollectedFeatures(withConfirmation: true)
     }
 }

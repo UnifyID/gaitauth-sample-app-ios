@@ -74,7 +74,7 @@ class FeatureBuffer {
         }
     }
 
-    func flush(to callbackQueue: DispatchQueue = DispatchQueue.global(), count: Int? = nil, handler: @escaping ([Element], ((Bool) -> Void)) -> Void) {
+    func flush(to callbackQueue: DispatchQueue = DispatchQueue.global(), count: Int? = nil, handler: @escaping ([Element], (@escaping (Bool) -> Void)) -> Void) {
         queue.async {
             let flushCount = min(count ?? self.buffer.count, self.buffer.count)
             guard flushCount > 0 else {
