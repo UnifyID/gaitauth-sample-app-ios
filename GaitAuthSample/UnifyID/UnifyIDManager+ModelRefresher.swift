@@ -11,8 +11,7 @@ extension UnifyIDManager: ModelRefresher {
         guard let model = model else {
             interactor?.presentErrorAlert(
                 title: "Failed refreshing model",
-                message: "Model not set",
-                completion: nil
+                message: "Model not set"
             )
             return
         }
@@ -24,8 +23,7 @@ extension UnifyIDManager: ModelRefresher {
                 case .failure(let error):
                     self.interactor?.presentErrorAlert(
                         title: "Failed Refreshing Model",
-                        message: error.localizedDescription,
-                        completion: nil
+                        message: error.localizedDescription
                     )
                     return
                 case .success(let changeType):
@@ -39,7 +37,6 @@ extension UnifyIDManager: ModelRefresher {
                         )
                     )
                 }
-                self.refreshCount += 1
             }
         }
     }

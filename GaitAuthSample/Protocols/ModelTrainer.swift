@@ -5,11 +5,15 @@
 
 import Foundation
 
-protocol FeatureCollector: class {
-    var isCollectingFeatures: Bool { get set }
+protocol ModelTrainer: class {
     var featureCollectionCount: Int { get }
-
-    func trainModel(withConfirmation: Bool)
+    var isCollectingFeatures: Bool { get set }
+    func trainModel()
     func addCollectedFeatures(completion: ((Error) -> Void)?)
-    func scoreCollectedFeatures(withConfirmation: Bool)
+}
+
+extension ModelTrainer {
+    func addCollectedFeatures() {
+        self.addCollectedFeatures(completion: nil)
+    }
 }

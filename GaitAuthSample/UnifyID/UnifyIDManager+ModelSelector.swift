@@ -13,8 +13,7 @@ extension UnifyIDManager: ModelSelector {
         guard let gaitAuth = gaitAuth else {
             interactor?.presentErrorAlert(
                 title: "Failed Creating Model",
-                message: "GaitAuth not initialized",
-                completion: nil
+                message: "GaitAuth not initialized"
             )
             return
         }
@@ -26,8 +25,7 @@ extension UnifyIDManager: ModelSelector {
                 case .failure(let error):
                     self.interactor?.presentErrorAlert(
                         title: "Failed Creating Model",
-                        message: error.localizedDescription,
-                        completion: nil
+                        message: error.localizedDescription
                     )
                 case .success(let model):
                     self.model = model
@@ -50,8 +48,7 @@ extension UnifyIDManager: ModelSelector {
         guard let gaitAuth = gaitAuth else {
             interactor?.presentErrorAlert(
                 title: "Failed Loading Model",
-                message: "GaitAuth not initialized",
-                completion: nil
+                message: "GaitAuth not initialized"
             )
             return
         }
@@ -63,8 +60,7 @@ extension UnifyIDManager: ModelSelector {
                 case .failure(let error):
                     self.interactor?.presentErrorAlert(
                         title: "Failed Loading Model",
-                        message: error.localizedDescription,
-                        completion: nil
+                        message: error.localizedDescription
                     )
                 case .success(let model):
                     self.model = model

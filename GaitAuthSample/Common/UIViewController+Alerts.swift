@@ -76,7 +76,23 @@ extension UIViewController {
         }
     }
 
-    func presentSingleInputAlert(
+    func presentError(
+        title: String,
+        message: String? = nil,
+        completion: (() -> Void)? = nil
+    ) {
+        presentAlert(title: title, message: message, completion: completion)
+    }
+
+    func presentError(
+        title: String,
+        error: Error,
+        completion: (() -> Void)? = nil
+    ) {
+        presentAlert(title: title, message: error.localizedDescription, completion: completion)
+    }
+
+    func presentInputAlert(
         title: String,
         prompt: String? = nil,
         cancelTitle: String = "Cancel",

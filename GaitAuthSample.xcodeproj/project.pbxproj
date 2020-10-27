@@ -13,7 +13,7 @@
 		983288E424E1D91E0046C47A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 983288E324E1D91E0046C47A /* Assets.xcassets */; };
 		983288E724E1D91E0046C47A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 983288E524E1D91E0046C47A /* LaunchScreen.storyboard */; };
 		9832890E24E1E9000046C47A /* walking.json in Resources */ = {isa = PBXBuildFile; fileRef = 9832890D24E1E9000046C47A /* walking.json */; };
-		9832891324E1FD770046C47A /* FeatureCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9832891224E1FD770046C47A /* FeatureCollectionViewController.swift */; };
+		9832891324E1FD770046C47A /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9832891224E1FD770046C47A /* TrainingViewController.swift */; };
 		9832891924E24C590046C47A /* ColorCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9832891824E24C590046C47A /* ColorCompatibility.swift */; };
 		986C76FE24E3BC5600320541 /* SelectModelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986C76FD24E3BC5600320541 /* SelectModelViewController.swift */; };
 		986C770024E4AE4A00320541 /* TypedNotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 986C76FF24E4AE4A00320541 /* TypedNotificationCenter.swift */; };
@@ -22,14 +22,18 @@
 		9872631A24F5BABB00466120 /* ScoresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872631924F5BABB00466120 /* ScoresViewController.swift */; };
 		9872631D24F5FFE500466120 /* Bundle+Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872631C24F5FFE500466120 /* Bundle+Info.swift */; };
 		9872632024F6008E00466120 /* InteractionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872631F24F6008E00466120 /* InteractionDelegate.swift */; };
-		9872632224F600C800466120 /* FeatureCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872632124F600C800466120 /* FeatureCollector.swift */; };
 		9872632424F600EE00466120 /* ModelRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872632324F600EE00466120 /* ModelRefresher.swift */; };
 		9872632624F6013A00466120 /* ModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872632524F6013A00466120 /* ModelSelector.swift */; };
 		9898C8CA24F7163100A3C2F6 /* EmbeddingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898C8C924F7163100A3C2F6 /* EmbeddingViewController.swift */; };
 		9898C8CD24F718DC00A3C2F6 /* UnifyIDManager+ModelSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898C8CC24F718DC00A3C2F6 /* UnifyIDManager+ModelSelector.swift */; };
 		9898C8CF24F718FE00A3C2F6 /* UnifyIDManager+ModelRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898C8CE24F718FE00A3C2F6 /* UnifyIDManager+ModelRefresher.swift */; };
-		9898C8D124F7198E00A3C2F6 /* UnifyIDManager+FeatureCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898C8D024F7198E00A3C2F6 /* UnifyIDManager+FeatureCollector.swift */; };
+		9898C8D124F7198E00A3C2F6 /* UnifyIDManager+Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9898C8D024F7198E00A3C2F6 /* UnifyIDManager+Training.swift */; };
 		989E88BE24F4B3B10045F631 /* Lottie+Animating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 989E88BD24F4B3B10045F631 /* Lottie+Animating.swift */; };
+		98B55C2F25472C0700FC50EA /* TestingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B55C2E25472C0700FC50EA /* TestingViewController.swift */; };
+		98B55C3525473F7700FC50EA /* DidCollectFeaturesNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B55C3425473F7700FC50EA /* DidCollectFeaturesNotification.swift */; };
+		98B55C6325479DE600FC50EA /* ModelTrainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B55C6225479DE600FC50EA /* ModelTrainer.swift */; };
+		98B55C6825479E8C00FC50EA /* UnifyIDManager+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B55C6725479E8C00FC50EA /* UnifyIDManager+Testing.swift */; };
+		98B55C6B25479ED700FC50EA /* ModelTester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B55C6A25479ED700FC50EA /* ModelTester.swift */; };
 		98B5B21E24E7377B0006535C /* ActiveModelDidChangeNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5B21D24E7377B0006535C /* ActiveModelDidChangeNotification.swift */; };
 		98B5B22024E737880006535C /* DidResetModelNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5B21F24E737880006535C /* DidResetModelNotification.swift */; };
 		98B5B22224E738B70006535C /* UIStoryboard+Typing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5B22124E738B70006535C /* UIStoryboard+Typing.swift */; };
@@ -59,7 +63,7 @@
 		983288E624E1D91E0046C47A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		983288E824E1D91E0046C47A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9832890D24E1E9000046C47A /* walking.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = walking.json; sourceTree = "<group>"; };
-		9832891224E1FD770046C47A /* FeatureCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollectionViewController.swift; sourceTree = "<group>"; };
+		9832891224E1FD770046C47A /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
 		9832891824E24C590046C47A /* ColorCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCompatibility.swift; sourceTree = "<group>"; };
 		986C76FD24E3BC5600320541 /* SelectModelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectModelViewController.swift; sourceTree = "<group>"; };
 		986C76FF24E4AE4A00320541 /* TypedNotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypedNotificationCenter.swift; sourceTree = "<group>"; };
@@ -68,14 +72,18 @@
 		9872631924F5BABB00466120 /* ScoresViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresViewController.swift; sourceTree = "<group>"; };
 		9872631C24F5FFE500466120 /* Bundle+Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Info.swift"; sourceTree = "<group>"; };
 		9872631F24F6008E00466120 /* InteractionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractionDelegate.swift; sourceTree = "<group>"; };
-		9872632124F600C800466120 /* FeatureCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureCollector.swift; sourceTree = "<group>"; };
 		9872632324F600EE00466120 /* ModelRefresher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRefresher.swift; sourceTree = "<group>"; };
 		9872632524F6013A00466120 /* ModelSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSelector.swift; sourceTree = "<group>"; };
 		9898C8C924F7163100A3C2F6 /* EmbeddingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddingViewController.swift; sourceTree = "<group>"; };
 		9898C8CC24F718DC00A3C2F6 /* UnifyIDManager+ModelSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifyIDManager+ModelSelector.swift"; sourceTree = "<group>"; };
 		9898C8CE24F718FE00A3C2F6 /* UnifyIDManager+ModelRefresher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifyIDManager+ModelRefresher.swift"; sourceTree = "<group>"; };
-		9898C8D024F7198E00A3C2F6 /* UnifyIDManager+FeatureCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifyIDManager+FeatureCollector.swift"; sourceTree = "<group>"; };
+		9898C8D024F7198E00A3C2F6 /* UnifyIDManager+Training.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifyIDManager+Training.swift"; sourceTree = "<group>"; };
 		989E88BD24F4B3B10045F631 /* Lottie+Animating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Lottie+Animating.swift"; sourceTree = "<group>"; };
+		98B55C2E25472C0700FC50EA /* TestingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingViewController.swift; sourceTree = "<group>"; };
+		98B55C3425473F7700FC50EA /* DidCollectFeaturesNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DidCollectFeaturesNotification.swift; sourceTree = "<group>"; };
+		98B55C6225479DE600FC50EA /* ModelTrainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelTrainer.swift; sourceTree = "<group>"; };
+		98B55C6725479E8C00FC50EA /* UnifyIDManager+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UnifyIDManager+Testing.swift"; sourceTree = "<group>"; };
+		98B55C6A25479ED700FC50EA /* ModelTester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTester.swift; sourceTree = "<group>"; };
 		98B5B21D24E7377B0006535C /* ActiveModelDidChangeNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveModelDidChangeNotification.swift; sourceTree = "<group>"; };
 		98B5B21F24E737880006535C /* DidResetModelNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DidResetModelNotification.swift; sourceTree = "<group>"; };
 		98B5B22124E738B70006535C /* UIStoryboard+Typing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStoryboard+Typing.swift"; sourceTree = "<group>"; };
@@ -157,12 +165,13 @@
 			isa = PBXGroup;
 			children = (
 				983288DE24E1D91C0046C47A /* HomeViewController.swift */,
-				986C76FD24E3BC5600320541 /* SelectModelViewController.swift */,
-				9832891224E1FD770046C47A /* FeatureCollectionViewController.swift */,
+				98DE999424E33F71003F8F0C /* InfoTableViewController.swift */,
+				98C1A07C24E79D28003B07FB /* ModelErrorViewController.swift */,
 				98B5B22424E7394F0006535C /* PendingViewController.swift */,
 				9872631924F5BABB00466120 /* ScoresViewController.swift */,
-				98C1A07C24E79D28003B07FB /* ModelErrorViewController.swift */,
-				98DE999424E33F71003F8F0C /* InfoTableViewController.swift */,
+				986C76FD24E3BC5600320541 /* SelectModelViewController.swift */,
+				98B55C2E25472C0700FC50EA /* TestingViewController.swift */,
+				9832891224E1FD770046C47A /* TrainingViewController.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -171,15 +180,15 @@
 			isa = PBXGroup;
 			children = (
 				98DE999824E355FE003F8F0C /* BlockButton.swift */,
+				9872631C24F5FFE500466120 /* Bundle+Info.swift */,
 				9832891824E24C590046C47A /* ColorCompatibility.swift */,
+				9898C8C924F7163100A3C2F6 /* EmbeddingViewController.swift */,
 				98DE999A24E35891003F8F0C /* FeatureBuffer.swift */,
-				98B5B22124E738B70006535C /* UIStoryboard+Typing.swift */,
-				98B5B22624E739FF0006535C /* UIViewController+Alerts.swift */,
-				986C76FF24E4AE4A00320541 /* TypedNotificationCenter.swift */,
 				989E88BD24F4B3B10045F631 /* Lottie+Animating.swift */,
 				9872631624F5B57B00466120 /* ScoresBarChartView.swift */,
-				9872631C24F5FFE500466120 /* Bundle+Info.swift */,
-				9898C8C924F7163100A3C2F6 /* EmbeddingViewController.swift */,
+				986C76FF24E4AE4A00320541 /* TypedNotificationCenter.swift */,
+				98B5B22124E738B70006535C /* UIStoryboard+Typing.swift */,
+				98B5B22624E739FF0006535C /* UIViewController+Alerts.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -187,9 +196,10 @@
 		986C770124E4B00600320541 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
-				986C770224E4B01B00320541 /* CollectionStateDidChangeNotification.swift */,
-				98B5B21F24E737880006535C /* DidResetModelNotification.swift */,
 				98B5B21D24E7377B0006535C /* ActiveModelDidChangeNotification.swift */,
+				986C770224E4B01B00320541 /* CollectionStateDidChangeNotification.swift */,
+				98B55C3425473F7700FC50EA /* DidCollectFeaturesNotification.swift */,
+				98B5B21F24E737880006535C /* DidResetModelNotification.swift */,
 				98C1A07724E77CCA003B07FB /* ModelDidRefreshNotification.swift */,
 			);
 			path = Notifications;
@@ -198,9 +208,9 @@
 		9872631B24F5FAFE00466120 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				98C1A07E24E79F44003B07FB /* error-animation.json */,
 				98C1A07524E775FD003B07FB /* loading-spinner.json */,
 				9832890D24E1E9000046C47A /* walking.json */,
-				98C1A07E24E79F44003B07FB /* error-animation.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -209,9 +219,10 @@
 			isa = PBXGroup;
 			children = (
 				9872631F24F6008E00466120 /* InteractionDelegate.swift */,
-				9872632124F600C800466120 /* FeatureCollector.swift */,
 				9872632324F600EE00466120 /* ModelRefresher.swift */,
 				9872632524F6013A00466120 /* ModelSelector.swift */,
+				98B55C6A25479ED700FC50EA /* ModelTester.swift */,
+				98B55C6225479DE600FC50EA /* ModelTrainer.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -219,12 +230,13 @@
 		9898C8CB24F718A400A3C2F6 /* UnifyID */ = {
 			isa = PBXGroup;
 			children = (
-				98DE999624E34FCA003F8F0C /* UnifyIDManager.swift */,
-				9898C8CC24F718DC00A3C2F6 /* UnifyIDManager+ModelSelector.swift */,
-				9898C8CE24F718FE00A3C2F6 /* UnifyIDManager+ModelRefresher.swift */,
-				9898C8D024F7198E00A3C2F6 /* UnifyIDManager+FeatureCollector.swift */,
 				98C1A08024E7A433003B07FB /* FakeFeatureGenerator.swift */,
+				98DE999624E34FCA003F8F0C /* UnifyIDManager.swift */,
+				9898C8D024F7198E00A3C2F6 /* UnifyIDManager+Training.swift */,
 				98FD020E2543569C00BBDC5F /* UnifyIDManager+LocationDelegate.swift */,
+				9898C8CE24F718FE00A3C2F6 /* UnifyIDManager+ModelRefresher.swift */,
+				9898C8CC24F718DC00A3C2F6 /* UnifyIDManager+ModelSelector.swift */,
+				98B55C6725479E8C00FC50EA /* UnifyIDManager+Testing.swift */,
 			);
 			path = UnifyID;
 			sourceTree = "<group>";
@@ -382,32 +394,36 @@
 				98C1A07824E77CCA003B07FB /* ModelDidRefreshNotification.swift in Sources */,
 				986C76FE24E3BC5600320541 /* SelectModelViewController.swift in Sources */,
 				98B5B22024E737880006535C /* DidResetModelNotification.swift in Sources */,
+				98B55C6325479DE600FC50EA /* ModelTrainer.swift in Sources */,
 				986C770024E4AE4A00320541 /* TypedNotificationCenter.swift in Sources */,
-				9898C8D124F7198E00A3C2F6 /* UnifyIDManager+FeatureCollector.swift in Sources */,
+				9898C8D124F7198E00A3C2F6 /* UnifyIDManager+Training.swift in Sources */,
 				9898C8CF24F718FE00A3C2F6 /* UnifyIDManager+ModelRefresher.swift in Sources */,
 				986C770324E4B01B00320541 /* CollectionStateDidChangeNotification.swift in Sources */,
 				98B5B21E24E7377B0006535C /* ActiveModelDidChangeNotification.swift in Sources */,
 				98C1A08124E7A433003B07FB /* FakeFeatureGenerator.swift in Sources */,
 				98DE999724E34FCA003F8F0C /* UnifyIDManager.swift in Sources */,
 				98DE999B24E35891003F8F0C /* FeatureBuffer.swift in Sources */,
+				98B55C3525473F7700FC50EA /* DidCollectFeaturesNotification.swift in Sources */,
 				9872631724F5B57B00466120 /* ScoresBarChartView.swift in Sources */,
 				9872631A24F5BABB00466120 /* ScoresViewController.swift in Sources */,
 				989E88BE24F4B3B10045F631 /* Lottie+Animating.swift in Sources */,
 				9832891924E24C590046C47A /* ColorCompatibility.swift in Sources */,
+				98B55C2F25472C0700FC50EA /* TestingViewController.swift in Sources */,
 				98FD020F2543569C00BBDC5F /* UnifyIDManager+LocationDelegate.swift in Sources */,
 				98B5B22524E7394F0006535C /* PendingViewController.swift in Sources */,
 				9872632024F6008E00466120 /* InteractionDelegate.swift in Sources */,
 				983288DF24E1D91C0046C47A /* HomeViewController.swift in Sources */,
 				98DE999924E355FE003F8F0C /* BlockButton.swift in Sources */,
+				98B55C6825479E8C00FC50EA /* UnifyIDManager+Testing.swift in Sources */,
 				98B5B22724E739FF0006535C /* UIViewController+Alerts.swift in Sources */,
 				9872631D24F5FFE500466120 /* Bundle+Info.swift in Sources */,
 				983288DB24E1D91C0046C47A /* AppDelegate.swift in Sources */,
 				9898C8CA24F7163100A3C2F6 /* EmbeddingViewController.swift in Sources */,
-				9832891324E1FD770046C47A /* FeatureCollectionViewController.swift in Sources */,
+				9832891324E1FD770046C47A /* TrainingViewController.swift in Sources */,
 				98B5B22224E738B70006535C /* UIStoryboard+Typing.swift in Sources */,
 				98C1A07D24E79D28003B07FB /* ModelErrorViewController.swift in Sources */,
 				9872632424F600EE00466120 /* ModelRefresher.swift in Sources */,
-				9872632224F600C800466120 /* FeatureCollector.swift in Sources */,
+				98B55C6B25479ED700FC50EA /* ModelTester.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

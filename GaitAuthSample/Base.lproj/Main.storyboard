@@ -220,7 +220,7 @@
         <!--Training-->
         <scene sceneID="AxP-me-LgP">
             <objects>
-                <viewController storyboardIdentifier="FeatureCollectionViewController" title="Training" id="uNI-ns-AtF" customClass="TrainingViewController" customModule="GaitAuthSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TrainingViewController" title="Training" id="uNI-ns-AtF" customClass="TrainingViewController" customModule="GaitAuthSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7oU-FB-UIf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -655,7 +655,7 @@
                                 <rect key="frame" x="12" y="56" width="390" height="794"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="y8V-by-aMk">
-                                        <rect key="frame" x="0.0" y="0.0" width="391" height="555.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="391" height="615.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U3R-uQ-o0Z" userLabel="Animation Container View">
                                                 <rect key="frame" x="0.0" y="0.0" width="391" height="293.5"/>
@@ -685,13 +685,13 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="cSo-BT-RUC">
                                                         <rect key="frame" x="10" y="10" width="371" height="108"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Collected" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="db0-mO-u2A" userLabel="Collected">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Status" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="db0-mO-u2A" userLabel="Collected">
                                                                 <rect key="frame" x="0.0" y="0.0" width="371" height="78"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaR-V6-giO" userLabel="Collected Count Label">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="unknown" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaR-V6-giO" userLabel="Collected Count Label">
                                                                 <rect key="frame" x="0.0" y="84" width="371" height="24"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                                                 <nil key="textColor"/>
@@ -709,13 +709,13 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jn5-ts-72L" userLabel="Button Stack View">
-                                                <rect key="frame" x="0.0" y="445.5" width="391" height="110"/>
+                                                <rect key="frame" x="0.0" y="445.5" width="391" height="170"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RLj-er-GPV" customClass="BlockButton" customModule="GaitAuthSample" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="391" height="50"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                         <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
-                                                        <state key="normal" title="Start Collecting">
+                                                        <state key="normal" title="Start Test">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
@@ -733,14 +733,39 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="toggleCollection" destination="5HX-64-q0M" eventType="touchUpInside" id="D0U-JH-lSF"/>
+                                                            <action selector="startTest" destination="5HX-64-q0M" eventType="touchUpInside" id="zUz-2u-5Zy"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1j-gH-sBR" userLabel="Score Features Button" customClass="BlockButton" customModule="GaitAuthSample" customModuleProvider="target">
+                                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lrp-C4-bJH" userLabel="Get Status" customClass="BlockButton" customModule="GaitAuthSample" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="60" width="391" height="50"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                         <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
-                                                        <state key="normal" title="Score Features">
+                                                        <state key="normal" title="Get Status">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                <real key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledBackgroundColor">
+                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="normalBackgroundColor">
+                                                                <color key="value" systemColor="systemRedColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="color" keyPath="disabledTextColor">
+                                                                <color key="value" systemColor="lightTextColor"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="getStatus" destination="5HX-64-q0M" eventType="touchUpInside" id="ltp-iH-CF3"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1j-gH-sBR" userLabel="Score Features Button" customClass="BlockButton" customModule="GaitAuthSample" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="120" width="391" height="50"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                        <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
+                                                        <state key="normal" title="End Test">
                                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
@@ -755,7 +780,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="scoreCollectedFeatures" destination="5HX-64-q0M" eventType="touchUpInside" id="K7z-jl-zPc"/>
+                                                            <action selector="endTest" destination="5HX-64-q0M" eventType="touchUpInside" id="eg4-RJ-znl"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -787,8 +812,10 @@
                     <navigationItem key="navigationItem" title="Training" id="f2m-78-tiZ"/>
                     <connections>
                         <outlet property="animationView" destination="ZhY-yd-rUJ" id="Ira-Zs-toc"/>
-                        <outlet property="collectionButton" destination="RLj-er-GPV" id="IyP-YX-etJ"/>
                         <outlet property="countLabel" destination="yaR-V6-giO" id="yIr-f0-obR"/>
+                        <outlet property="endTestButton" destination="S1j-gH-sBR" id="q5n-pw-2PP"/>
+                        <outlet property="startTestButton" destination="RLj-er-GPV" id="IyP-YX-etJ"/>
+                        <outlet property="statusButton" destination="lrp-C4-bJH" id="aUW-Ts-4Nk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BMJ-BG-Tzb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -883,10 +910,10 @@
         <designable name="Hrm-1b-YuW"/>
         <designable name="LdZ-N9-cPb"/>
         <designable name="RLj-er-GPV">
-            <size key="intrinsicContentSize" width="186" height="50"/>
+            <size key="intrinsicContentSize" width="114" height="50"/>
         </designable>
         <designable name="S1j-gH-sBR">
-            <size key="intrinsicContentSize" width="181" height="50"/>
+            <size key="intrinsicContentSize" width="103" height="50"/>
         </designable>
         <designable name="S4k-37-HdR">
             <size key="intrinsicContentSize" width="162" height="50"/>
@@ -902,6 +929,9 @@
         <designable name="km9-Wa-slN">
             <size key="intrinsicContentSize" width="140" height="50"/>
         </designable>
+        <designable name="lrp-C4-bJH">
+            <size key="intrinsicContentSize" width="128" height="50"/>
+        </designable>
         <designable name="mh6-2W-YlD">
             <size key="intrinsicContentSize" width="142" height="50"/>
         </designable>
@@ -911,6 +941,9 @@
         <image name="trash" width="22" height="25"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="lightTextColor">
+            <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="lightTextColor">
             <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

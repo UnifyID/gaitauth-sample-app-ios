@@ -22,50 +22,39 @@ extension UnifyIDManager: CLLocationManagerDelegate {
         case notDetermined
     }
 
-    /// Update the current location collection state to match the desired data collection state.
-    func updateLocationCollection() {
-        dispatchPrecondition(condition: .onQueue(.main))
-        if isCollectingFeatures {
-            startLocationUpdates()
-        } else {
-            stopLocationUpdates()
-        }
-    }
-
     /// Subscribe to location updates, first requesting permissions if necessary.
     ///
     /// The check for the current authorization status will happen asynchronously and then call this function
     /// again if it returns, is authorized and `isCollectingLocation` indicates that the app should
     /// be collecting location information.
+    @discardableResult
+    internal func startLocationUpdates() -> Bool {
         dispatchPrecondition(condition: .onQueue(.main))
         switch locationAuthorization {
         case .notDetermined:
-            isCollectingLocation = true
             locationManager.requestAlwaysAuthorization()
-            return
         case .unauthorized:
             print("failed authorizing location updates")
-            isCollectingLocation = false
-            return
+            return false
         case .authorizedWhenInUse:
             // try upgrading permissions to always.
-            isCollectingLocation = true
             locationManager.requestAlwaysAuthorization()
         case .authorizedAlwaysFullAccuracy, .authorizedAlwaysReducedAccuracy:
-            isCollectingLocation = true
+            break
         }
 
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.pausesLocationUpdatesAutomatically = false
         locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
         locationManager.startUpdatingLocation()
+        return true
     }
 
-    private func stopLocationUpdates() {
+    @discardableResult
+    internal func stopLocationUpdates() -> Bool {
         dispatchPrecondition(condition: .onQueue(.main))
-        guard isCollectingLocation else { return }
-        defer { isCollectingLocation = false }
         locationManager.stopUpdatingLocation()
+        return false
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {

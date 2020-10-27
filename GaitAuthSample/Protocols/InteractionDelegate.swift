@@ -19,3 +19,9 @@ protocol Interactor: class {
         completion: @escaping (Bool) -> Void
     )
 }
+
+extension Interactor {
+    func presentErrorAlert(title: String, message: String) {
+        presentErrorAlert(title: title, message: message, completion: nil)
+    }
+}

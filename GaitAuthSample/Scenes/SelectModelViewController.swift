@@ -7,14 +7,14 @@ import Foundation
 import UIKit
 
 class SelectModelViewController: UIViewController {
-    weak var delegate: ModelSelector?
+    unowned var delegate: ModelSelector = unifyid
 
     @IBAction func createModel() {
-        delegate?.createModel()
+        delegate.createModel()
     }
 
     @IBAction func loadModel() {
-        presentSingleInputAlert(
+        presentInputAlert(
             title: "Load Model",
             prompt: "Please enter a valid model id."
         ) { [weak self] modelID in
@@ -23,14 +23,10 @@ class SelectModelViewController: UIViewController {
                 let modelID = modelID?.trimmingCharacters(in: .whitespaces),
                 let modelUUID = UUID(uuidString: modelID)
             else {
-                self.presentAlert(title: "Invalid Model ID") { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.loadModel()
-                    }
-                }
+                self.presentAlert(title: "Invalid Model ID")
                 return
             }
-            self.delegate?.loadModel(modelUUID.uuidString.lowercased())
+            self.delegate.loadModel(modelUUID.uuidString.lowercased())
         }
     }
 }

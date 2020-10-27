@@ -13,14 +13,18 @@ class HomeViewController: EmbeddingViewController {
 
         NotificationCenter.default.addObserver(
             for: ActiveModelDidChangeNotification.self,
-            queue: .main,
-            using: modelDidChange
-        )
+            queue: .main
+        ) { [weak self] in self?.modelDidChange($0) }
+
         NotificationCenter.default.addObserver(
             for: DidResetModelNotification.self,
-            queue: .main,
-            using: modelDidReset
-        )
+            queue: .main
+        ) { [weak self] in self?.modelDidReset($0) }
+
+        NotificationCenter.default.addObserver(
+            for: ModelDidRefreshNotification.self,
+            queue: .main
+        ) { [weak self] in self?.modelDidChange($0) }
 
         if let modelID = unifyid.modelID, modelID != unifyid.model?.id {
             unifyid.loadModel(modelID)
@@ -30,6 +34,11 @@ class HomeViewController: EmbeddingViewController {
     }
 
     private func modelDidChange(_ notification: ActiveModelDidChangeNotification) {
+        modelStatusDidChange(notification.status)
+    }
+
+    private func modelDidChange(_ notification: ModelDidRefreshNotification) {
+        guard case .didChange = notification.changeType else { return }
         modelStatusDidChange(notification.status)
     }
 
@@ -78,7 +87,7 @@ extension HomeViewController {
 
     private func showTrainingVC() {
         dispatchPrecondition(condition: .onQueue(.main))
-        let trainingVC = UIStoryboard.main.instantiateViewController(FeatureCollectionViewController.self)
+        let trainingVC = UIStoryboard.main.instantiateViewController(TrainingViewController.self)
         trainingVC.manager = unifyid
         self.embeddedVC = trainingVC
     }

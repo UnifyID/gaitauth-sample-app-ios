@@ -20,10 +20,27 @@ class UnifyIDManager: NSObject {
     internal var gaitAuth: GaitAuth? { core?.gaitAuth }
     internal var model: GaitModel?
 
+    /// A main-thread accessible counter that keeps track of the number of features in the training buffer.
+    internal var featureCollectionCount = 0
+
+    /// A reference to the observer object that is subscribed to feature updates for training.
+    internal var featureObserver: AnyHashable?
+
+    /// Buffer of features for training.
+    internal var featureBuffer = FeatureBuffer()
+
+    /// Active Gait Authenticator for testing.
+    private var gaitAuthenticator: Authenticator?
+
+    /// Last result issued by the Gait Authenticator.
+    internal private(set) var lastAuthenticatorResult: AuthenticationResult?
+
     /// Keep track of the most recently loaded model identifier in user-defaults so that it can be persisted
     /// and automatically loaded after the app is launched next.
     internal var modelID: String? {
-        get { UserDefaults.standard.string(forKey: "modelId") }
+        get {
+            UserDefaults.standard.string(forKey: "modelId")
+        }
         set {
             guard let modelID = newValue else {
                 UserDefaults.standard.removeObject(forKey: "modelId")
@@ -32,8 +49,6 @@ class UnifyIDManager: NSObject {
             UserDefaults.standard.setValue(modelID, forKey: "modelId")
         }
     }
-
-    internal var featureBuffer = FeatureBuffer()
 
     /// Initialize a location manager so that the app can use background location permissions
     /// to stay alive in the background. Other techniques may be used to help collect data more
@@ -59,8 +74,16 @@ class UnifyIDManager: NSObject {
     internal var isCollectingFeatures = false {
         didSet {
             dispatchPrecondition(condition: .onQueue(.main))
-            updateLocationCollection()
-            updateFeatureCollection()
+            guard isCollectingFeatures != oldValue else { return }
+
+            if isCollectingFeatures {
+                startFeatureCollection()
+                isCollectingLocation = startLocationUpdates()
+            } else {
+                stopFeatureCollection()
+                isCollectingLocation = stopLocationUpdates()
+            }
+
             NotificationCenter.default.post(
                 CollectionStateDidChangeNotification(sender: self, isCollecting: isCollectingFeatures)
             )
@@ -75,65 +98,106 @@ class UnifyIDManager: NSObject {
     func reset() {
         dispatchPrecondition(condition: .onQueue(.main))
         isCollectingFeatures = false
-        featureCollectionCount = 0
         featureBuffer.removeAll()
+        featureCollectionCount = 0
         NotificationCenter.default.post(DidResetModelNotification(sender: self))
     }
 
-    var featureCollectionCount: Int = 0 {
-        didSet {
-            dispatchPrecondition(condition: .onQueue(.main))
-            NotificationCenter.default.post(
-                CollectionStateDidChangeNotification(sender: self, isCollecting: isCollectingFeatures)
-            )
-        }
-    }
+    private func startFeatureCollection() {
+        dispatchPrecondition(condition: .onQueue(.main))
+        guard featureObserver == nil else { return }
 
-    // MARK: Simulate Model Refreshing
-
-    internal var refreshCount: Int = 0 {
-        didSet {
-            guard refreshCount >= 3 else { return }
-            interactor?.presentTerminalError(message: "Model training failed:\nInsufficient features")
-            refreshCount = 0
-        }
-    }
-
-    // MARK: Simulate Collection
-
-    private var collector: AnyHashable?
-
-    private func updateFeatureCollection() {
-        let featureCallback = { (result: Result<[GaitFeature], GaitAuthError>) -> Void in
+        let featureCallback = { [weak self] (result: Result<[GaitFeature], GaitAuthError>) -> Void in
+            guard let self = self else { return }
             switch result {
             case .failure(let error):
                 self.interactor?.presentErrorAlert(
                     title: "Failed Collecting Features",
-                    message: error.localizedDescription,
-                    completion: nil
+                    message: error.localizedDescription
                 )
             case .success(let features):
-                self.featureBuffer.write(features)
                 self.featureCollectionCount += features.count
+                self.featureBuffer.write(features)
+
+                print("collected \(features.count) features")
+                NotificationCenter.default.post(
+                    DidCollectFeaturesNotification(
+                        sender: self,
+                        newFeatureCount: features.count,
+                        totalFeaturesCollected: self.featureCollectionCount
+                    )
+                )
             }
         }
+
         #if targetEnvironment(simulator)
-        if isCollectingFeatures {
-            guard collector == nil else { return }
-            collector = FakeFeatureGenerator(to: .main, callback: featureCallback)
-        } else {
-            collector = nil
+        featureObserver = FakeFeatureGenerator(to: .main, callback: featureCallback)
+        #else
+        featureObserver = gaitAuth?.startFeatureUpdates(to: .main, with: featureCallback)
+        #endif
+        isCollectingFeatures = true
+    }
+
+    private func stopFeatureCollection() {
+        guard let featureObserver = featureObserver else {
+            self.isCollectingFeatures = false
+            return
         }
 
-        #else
-        if isCollectingFeatures {
-            guard collector == nil else { return }
-            collector = gaitAuth?.startFeatureUpdates(to: .main, with: featureCallback)
-        } else {
-            guard let collector = collector else { return }
-            gaitAuth?.stopFeatureUpdates(collector)
-            self.collector = nil
+        defer {
+            self.isCollectingFeatures = false
         }
+
+        #if targetEnvironment(simulator)
+        self.featureObserver = nil
+        #else
+        gaitAuth?.stopFeatureUpdates(featureObserver)
+        self.featureObserver = nil
         #endif
+    }
+
+    internal func startAuthenticator() {
+        dispatchPrecondition(condition: .onQueue(.main))
+        guard gaitAuthenticator == nil else { return }
+        guard let gaitAuth = gaitAuth, let model = model else {
+            self.interactor?.presentErrorAlert(
+                title: "Failed Inititalizing Authenticator",
+                message: "GaitAuth not initialized"
+            )
+            return
+        }
+        self.gaitAuthenticator = gaitAuth.authenticator(
+            // swiftlint:disable:next force_unwrapping
+            config: GaitQuantileConfig(threshold: 0.8)!,
+            model: model
+        )
+        self.isCollectingLocation = self.startLocationUpdates()
+    }
+
+    func getAuthenticatorStatus(completion: @escaping (AuthenticationResult) -> Void) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        gaitAuthenticator?.status { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .failure(let error):
+                    self?.interactor?.presentErrorAlert(
+                        title: "Authenticator Status Failed",
+                        message: error.localizedDescription
+                    )
+                case .success(let authResult):
+                    self?.lastAuthenticatorResult = authResult
+                    completion(authResult)
+                }
+            }
+        }
+    }
+
+    var isAuthenticatorActive: Bool {
+        dispatchPrecondition(condition: .onQueue(.main))
+        return gaitAuthenticator != nil
+    }
+
+    func stopAuthenticator() {
+        gaitAuthenticator = nil
     }
 }
