@@ -6,7 +6,9 @@
 import Foundation
 import GaitAuth
 
+/// Extends `UnifyIDManager` to support the model testing flow.
 extension UnifyIDManager: ModelTester {
+    /// Presents an `AuthenticationResult` via the `interactor`.
     func presentAuthenticationResult(_ result: AuthenticationResult) {
         dispatchPrecondition(condition: .onQueue(.main))
         let scores = result.context[.featureScores] as? [GaitScore] ?? []

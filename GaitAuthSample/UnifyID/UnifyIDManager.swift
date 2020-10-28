@@ -9,15 +9,38 @@ import UnifyID
 import GaitAuth
 import CoreLocation
 
+/// `UnifyIDManager` is responsible for controlling interactions between view controllers
+/// and the UnifyID SDK state. While it would be possible to move some of the logic into
+/// individual view controllers, it can help to have an external object manage the state
+/// in order to more easily support training and testing operations that could span multiple
+/// scenes in the app.
 class UnifyIDManager: NSObject {
+    /// Initialize the SDK with an SDK Key.
+    ///
+    /// If not specified, in the initializer will attempt to read from the `UnifyIDSDKKey`
+    /// entry in the application bundle's info dictionary. If the key is not provided
+    /// in the code or in the info dictionary, all API operations will fail.
     init(sdkKey: String? = nil) {
         super.init()
         core = try? UnifyID(sdkKey: sdkKey ?? Self.defaultSDKKey)
     }
 
+    /// Convenience static getter to retreive the default SDK key from the bundle dictionary.
+    static private var defaultSDKKey: String { Bundle.main.infoDictionary?["UnifyIDSDKKey"] as? String ?? "" }
+
+    /// The interactor implements an interface that allows the `UnifyIDManager` to present UI elements.
+    ///
+    /// The interactor should typically be implemented by a visible view controller.
     weak internal var interactor: Interactor?
+
+    /// A reference to the UnifyID Core SDK. If the initializer fails, this will be nil and will cause
+    /// errors while performing subsequent operations.
     internal var core: UnifyID?
+
+    /// A convenience getter to allow easier access to the GaitAuth property.
     internal var gaitAuth: GaitAuth? { core?.gaitAuth }
+
+    /// The currently loaded model.
     internal var model: GaitModel?
 
     /// A main-thread accessible counter that keeps track of the number of features in the training buffer.
@@ -90,14 +113,18 @@ class UnifyIDManager: NSObject {
         }
     }
 
-    static private var defaultSDKKey: String {
-        Bundle.main.infoDictionary?["UnifyIDSDKKey"] as? String ?? ""
-    }
-
-    /// Reset the application state.
+    /// Reset the application state and post a notification when completed.
+    ///
+    /// This includes:
+    ///     - Stopping training
+    ///     - Clearing the training buffer and collection count
+    ///     - Stopping any active authenticators
+    ///     - clearing the last authentication result
     func reset() {
         dispatchPrecondition(condition: .onQueue(.main))
         isCollectingFeatures = false
+        stopAuthenticator()
+        lastAuthenticatorResult = nil
         featureBuffer.removeAll()
         featureCollectionCount = 0
         modelID = nil
@@ -105,6 +132,10 @@ class UnifyIDManager: NSObject {
         NotificationCenter.default.post(DidResetModelNotification(sender: self))
     }
 
+    /// Starts feature collection for model training if it is not already running.
+    /// If an error is encountered, it will present an error. If features are
+    /// successfully collected, it will add the features to the training buffer and
+    /// emit a `Notification` indicating that the collected feature count has changed.
     private func startFeatureCollection() {
         dispatchPrecondition(condition: .onQueue(.main))
         guard featureObserver == nil else { return }
@@ -140,6 +171,9 @@ class UnifyIDManager: NSObject {
         isCollectingFeatures = true
     }
 
+    /// Stops feature collection for model training.
+    /// Stopping feature collection will prevent new features from being
+    /// collected, but will not empty the training buffer.
     private func stopFeatureCollection() {
         guard let featureObserver = featureObserver else {
             self.isCollectingFeatures = false
@@ -158,6 +192,11 @@ class UnifyIDManager: NSObject {
         #endif
     }
 
+    /// Creates a `GaitAuth` authenticator object if one does not already exist to start
+    /// evaluating the user's authentication status.
+    ///
+    /// After creating the authenticator, the current status must be regularly polled using
+    /// `getAuthenticatorStatus(completion:)`.
     internal func startAuthenticator() {
         dispatchPrecondition(condition: .onQueue(.main))
         guard gaitAuthenticator == nil else { return }
@@ -176,6 +215,9 @@ class UnifyIDManager: NSObject {
         self.isCollectingLocation = self.startLocationUpdates()
     }
 
+    /// Asynchronously retrieves the current status from the active authenticator.
+    /// Presents an error if one occurs and updates the `lastAuthenticatorResult` property
+    /// after a successful invocation.
     func getAuthenticatorStatus(completion: @escaping (AuthenticationResult) -> Void) {
         dispatchPrecondition(condition: .onQueue(.main))
         gaitAuthenticator?.status { [weak self] result in
@@ -194,11 +236,15 @@ class UnifyIDManager: NSObject {
         }
     }
 
+    /// Helper variable that allows a consumer to see if the authenticator is actively running.
     var isAuthenticatorActive: Bool {
         dispatchPrecondition(condition: .onQueue(.main))
         return gaitAuthenticator != nil
     }
 
+    /// Stops and deletes the active authenticator.
+    /// The last retrieved authentication result will still be persisted in
+    /// the `lastAuthenticationResult` property.
     func stopAuthenticator() {
         gaitAuthenticator = nil
     }

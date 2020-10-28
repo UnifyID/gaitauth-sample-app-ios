@@ -9,8 +9,10 @@ import Foundation
 struct DidCollectFeaturesNotification: TypedNotification {
     /// UnifyIDManager instance that fired the notification.
     let sender: UnifyIDManager
+
     /// Count of new features added.
     let newFeatureCount: Int
+
     /// Total features collected.
     let totalFeaturesCollected: Int
 }

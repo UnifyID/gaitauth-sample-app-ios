@@ -6,6 +6,11 @@
 import Foundation
 
 extension UnifyIDManager: ModelRefresher {
+    /// Refresh the active model state.
+    ///
+    /// Presents an error if the model is not initialized or
+    /// fails to refresh. Posts a notification after a successful
+    /// refresh operation.
     func refreshModel() {
         dispatchPrecondition(condition: .onQueue(.main))
         guard let model = model else {
