@@ -5,6 +5,7 @@
 
 import UIKit
 import GaitAuth
+import UnifyID
 
 class HomeViewController: EmbeddingViewController {
     override func viewDidLoad() {
@@ -25,6 +26,38 @@ class HomeViewController: EmbeddingViewController {
             for: ModelDidRefreshNotification.self,
             queue: .main
         ) { [weak self] in self?.modelDidChange($0) }
+
+        getSDKKeyAndInitialize()
+    }
+
+    /// If the UnifyID SDK is not initialized, try presenting an alert to collect
+    /// an SDK key from the user. The alert will be continuously presented until
+    /// the user enters an SDK key. In general, the SDK Key should be provided by
+    /// the app and should not be editable or collected from the user. This input
+    /// dialogue just makes it easier to test the app without needing to compile
+    /// it with a built-in key.
+    private func getSDKKeyAndInitialize() {
+        guard unifyid.core != nil else {
+            presentInputAlert(
+                title: "SDK Key",
+                prompt: "Please enter a valid UnifyID SDK Key",
+                cancelTitle: nil,
+                confirmTitle: "Confirm"
+            ) { [weak self] input in
+                guard let self = self else { return }
+
+                do {
+                    unifyid.core = try UnifyID(sdkKey: input ?? "")
+                    self.getSDKKeyAndInitialize()
+                } catch {
+                    self.presentError(title: "Failed initializing SDK", error: error) {
+                        self.getSDKKeyAndInitialize()
+                    }
+                }
+            }
+            self.modelStatusDidChange(nil)
+            return
+        }
 
         if let modelID = unifyid.modelID, modelID != unifyid.model?.id {
             unifyid.loadModel(modelID)

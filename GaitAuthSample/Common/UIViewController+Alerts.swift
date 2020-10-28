@@ -95,7 +95,7 @@ extension UIViewController {
     func presentInputAlert(
         title: String,
         prompt: String? = nil,
-        cancelTitle: String = "Cancel",
+        cancelTitle: String? = "Cancel",
         confirmTitle: String = "Confirm",
         completion: ((String?) -> Void)? = nil
     ) {
@@ -106,12 +106,15 @@ extension UIViewController {
         )
         alert.addTextField()
 
-        alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel) { _ in
-            DispatchQueue.main.async {
-                completion?(nil)
-                alertPresentationQueue.isSuspended = false
-            }
-        })
+        if let cancelTitle = cancelTitle {
+            alert.addAction(UIAlertAction(title: cancelTitle, style: .cancel) { _ in
+                DispatchQueue.main.async {
+                    completion?(nil)
+                    alertPresentationQueue.isSuspended = false
+                }
+            })
+        }
+
         alert.addAction(UIAlertAction(title: confirmTitle, style: .default) { _ in
             DispatchQueue.main.async {
                 let input = alert.textFields?.first?.text

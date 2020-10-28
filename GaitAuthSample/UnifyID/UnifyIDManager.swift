@@ -26,7 +26,17 @@ class UnifyIDManager: NSObject {
     }
 
     /// Convenience static getter to retreive the default SDK key from the bundle dictionary.
-    static private var defaultSDKKey: String { Bundle.main.infoDictionary?["UnifyIDSDKKey"] as? String ?? "" }
+    /// If the key is not set in the info dictionary, it will be looked for in UserDefaults,
+    /// which will also persist the last-used SDK key on a device.
+    static private var defaultSDKKey: String {
+        if let infoDictValue = Bundle.main.infoDictionary?["UnifyIDSDKKey"] as? String, !infoDictValue.isEmpty {
+            return infoDictValue
+        }
+        if let defaultsValue = UserDefaults.standard.string(forKey: "UnifyIDSDKKey"), !defaultsValue.isEmpty {
+            return defaultsValue
+        }
+        return ""
+    }
 
     /// The interactor implements an interface that allows the `UnifyIDManager` to present UI elements.
     ///
@@ -35,7 +45,11 @@ class UnifyIDManager: NSObject {
 
     /// A reference to the UnifyID Core SDK. If the initializer fails, this will be nil and will cause
     /// errors while performing subsequent operations.
-    internal var core: UnifyID?
+    internal var core: UnifyID? {
+        didSet {
+            UserDefaults.standard.setValue(core?.sdkKey.absoluteString, forKey: "UnifyIDSDKKey")
+        }
+    }
 
     /// A convenience getter to allow easier access to the GaitAuth property.
     internal var gaitAuth: GaitAuth? { core?.gaitAuth }
