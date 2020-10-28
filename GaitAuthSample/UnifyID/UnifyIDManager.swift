@@ -100,6 +100,8 @@ class UnifyIDManager: NSObject {
         isCollectingFeatures = false
         featureBuffer.removeAll()
         featureCollectionCount = 0
+        modelID = nil
+        model = nil
         NotificationCenter.default.post(DidResetModelNotification(sender: self))
     }
 
