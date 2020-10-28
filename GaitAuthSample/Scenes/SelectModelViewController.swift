@@ -7,10 +7,10 @@ import Foundation
 import UIKit
 
 class SelectModelViewController: UIViewController {
-    unowned var delegate: ModelSelector = unifyid
+    unowned var manager: ModelSelector = unifyid
 
     @IBAction func createModel() {
-        delegate.createModel()
+        manager.createModel()
     }
 
     @IBAction func loadModel() {
@@ -26,7 +26,7 @@ class SelectModelViewController: UIViewController {
                 self.presentAlert(title: "Invalid Model ID")
                 return
             }
-            self.delegate.loadModel(modelUUID.uuidString.lowercased())
+            self.manager.loadModel(modelUUID.uuidString.lowercased())
         }
     }
 }

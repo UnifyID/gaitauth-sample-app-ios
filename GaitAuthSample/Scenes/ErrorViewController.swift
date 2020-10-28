@@ -7,7 +7,7 @@ import Foundation
 import UIKit
 import Lottie
 
-class ModelErrorViewController: UIViewController {
+class ErrorViewController: UIViewController {
     @IBOutlet private var messageLabel: UILabel!
     @IBOutlet private var errorAnimationView: Lottie.AnimationView!
 

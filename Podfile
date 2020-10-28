@@ -14,6 +14,7 @@ post_install do |pi|
           config.build_settings.delete('IPHONEOS_DEPLOYMENT_TARGET')
           if ['Charts', 'lottie-ios'].include? t.name
             config.build_settings['BUILD_LIBRARY_FOR_DISTRIBUTION'] = 'NO'
+            config.build_settings['LD_NO_PIE'] = 'NO'
           end
       end
   end

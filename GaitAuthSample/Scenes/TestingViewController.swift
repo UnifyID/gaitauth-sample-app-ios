@@ -18,8 +18,7 @@ class TestingViewController: UIViewController {
     @IBOutlet weak var startTestButton: UIButton!
     @IBOutlet weak var statusButton: UIButton!
     @IBOutlet weak var endTestButton: UIButton!
-    @IBOutlet weak var countLabel: UILabel!
-
+    @IBOutlet weak var statusLabel: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +43,7 @@ class TestingViewController: UIViewController {
     }
 
     @IBAction func getStatus() {
+        dispatchPrecondition(condition: .onQueue(.main))
         manager.getAuthenticatorStatus { [weak self] _ in
             guard let self = self else { return }
             self.refresh()
@@ -55,7 +55,7 @@ class TestingViewController: UIViewController {
         manager.getAuthenticatorStatus { [weak self] result in
             guard let self = self else { return }
             self.manager.stopAuthenticator()
-            self.manager.presentAuthenticationResult(result)
+            self.presentResult(result)
             self.refresh()
         }
     }
@@ -65,8 +65,19 @@ class TestingViewController: UIViewController {
         startTestButton.isHidden = manager.isAuthenticatorActive
         startTestButton.setTitle(!manager.isAuthenticatorActive ? "Start Test" : "Get Status", for: .normal)
         statusButton.isHidden = !manager.isAuthenticatorActive
-        countLabel.text = manager.lastAuthenticatorResult?.status.description ?? "unknown"
+        statusLabel.text = manager.lastAuthenticatorResult?.status.description ?? "unknown"
         endTestButton.isHidden = !manager.isAuthenticatorActive
         animationView.animating = manager.isAuthenticatorActive
+    }
+
+    private func presentResult(_ result: AuthenticationResult) {
+        dispatchPrecondition(condition: .onQueue(.main))
+        let gaitScores = result.context[.featureScores] as? [GaitScore] ?? []
+        let scores = gaitScores.map { (date: $0.date, score: $0.value) }
+
+        let scoresVC = UIStoryboard.main.instantiateViewController(ScoresViewController.self)
+        scoresVC.scores = scores
+        scoresVC.status = result.status.description
+        present(scoresVC, animated: true)
     }
 }

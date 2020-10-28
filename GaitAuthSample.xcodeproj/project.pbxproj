@@ -41,7 +41,7 @@
 		98B5B22724E739FF0006535C /* UIViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B5B22624E739FF0006535C /* UIViewController+Alerts.swift */; };
 		98C1A07624E775FD003B07FB /* loading-spinner.json in Resources */ = {isa = PBXBuildFile; fileRef = 98C1A07524E775FD003B07FB /* loading-spinner.json */; };
 		98C1A07824E77CCA003B07FB /* ModelDidRefreshNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1A07724E77CCA003B07FB /* ModelDidRefreshNotification.swift */; };
-		98C1A07D24E79D28003B07FB /* ModelErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1A07C24E79D28003B07FB /* ModelErrorViewController.swift */; };
+		98C1A07D24E79D28003B07FB /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1A07C24E79D28003B07FB /* ErrorViewController.swift */; };
 		98C1A07F24E79F44003B07FB /* error-animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 98C1A07E24E79F44003B07FB /* error-animation.json */; };
 		98C1A08124E7A433003B07FB /* FakeFeatureGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98C1A08024E7A433003B07FB /* FakeFeatureGenerator.swift */; };
 		98DE999524E33F71003F8F0C /* InfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98DE999424E33F71003F8F0C /* InfoTableViewController.swift */; };
@@ -91,7 +91,7 @@
 		98B5B22624E739FF0006535C /* UIViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alerts.swift"; sourceTree = "<group>"; };
 		98C1A07524E775FD003B07FB /* loading-spinner.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "loading-spinner.json"; sourceTree = "<group>"; };
 		98C1A07724E77CCA003B07FB /* ModelDidRefreshNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDidRefreshNotification.swift; sourceTree = "<group>"; };
-		98C1A07C24E79D28003B07FB /* ModelErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelErrorViewController.swift; sourceTree = "<group>"; };
+		98C1A07C24E79D28003B07FB /* ErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		98C1A07E24E79F44003B07FB /* error-animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "error-animation.json"; sourceTree = "<group>"; };
 		98C1A08024E7A433003B07FB /* FakeFeatureGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeFeatureGenerator.swift; sourceTree = "<group>"; };
 		98DE999424E33F71003F8F0C /* InfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableViewController.swift; sourceTree = "<group>"; };
@@ -164,9 +164,9 @@
 		9832890A24E1D9660046C47A /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				98C1A07C24E79D28003B07FB /* ErrorViewController.swift */,
 				983288DE24E1D91C0046C47A /* HomeViewController.swift */,
 				98DE999424E33F71003F8F0C /* InfoTableViewController.swift */,
-				98C1A07C24E79D28003B07FB /* ModelErrorViewController.swift */,
 				98B5B22424E7394F0006535C /* PendingViewController.swift */,
 				9872631924F5BABB00466120 /* ScoresViewController.swift */,
 				986C76FD24E3BC5600320541 /* SelectModelViewController.swift */,
@@ -281,7 +281,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1210;
 				ORGANIZATIONNAME = UnifyID;
 				TargetAttributes = {
 					983288D624E1D91B0046C47A = {
@@ -421,7 +421,7 @@
 				9898C8CA24F7163100A3C2F6 /* EmbeddingViewController.swift in Sources */,
 				9832891324E1FD770046C47A /* TrainingViewController.swift in Sources */,
 				98B5B22224E738B70006535C /* UIStoryboard+Typing.swift in Sources */,
-				98C1A07D24E79D28003B07FB /* ModelErrorViewController.swift in Sources */,
+				98C1A07D24E79D28003B07FB /* ErrorViewController.swift in Sources */,
 				9872632424F600EE00466120 /* ModelRefresher.swift in Sources */,
 				98B55C6B25479ED700FC50EA /* ModelTester.swift in Sources */,
 			);
@@ -501,7 +501,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -557,7 +557,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

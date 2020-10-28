@@ -4,24 +4,32 @@
 //
 
 import Foundation
+import UIKit
 
+/// Protocol to provide support for limited UI functionality from non-view code.
 protocol Interactor: class {
-    func presentPending()
-    func presentScores(_ scores: [(date: Date, score: Double)])
-    func presentErrorAlert(title: String, message: String, completion: (() -> Void)?)
-    func presentTerminalError(message: String)
-
-    func presentConfirmation(
+    /// Presents a UIAlertController with the provided title and message.
+    func presentAlert(
         title: String,
         message: String?,
         cancelTitle: String,
-        actionTitle: String,
-        completion: @escaping (Bool) -> Void
+        completion: (() -> Void)?
     )
 }
 
 extension Interactor {
-    func presentErrorAlert(title: String, message: String) {
-        presentErrorAlert(title: title, message: message, completion: nil)
+    /// Presents a UIAlertController with the provided title and message.
+    /// Default implementation to give default values to optional protocol parameters.
+    func presentAlert(
+        title: String,
+        message: String? = nil,
+        cancelTitle: String = "Cancel",
+        completion: (() -> Void)? = nil
+    ) {
+        presentAlert(title: title, message: message, cancelTitle: cancelTitle, completion: completion)
     }
 }
+
+/// A `UIViewController` extension is already expected to add the alert functionality
+/// to all `UIViewController` instances.
+extension UIViewController: Interactor {}

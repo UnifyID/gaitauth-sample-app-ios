@@ -34,19 +34,23 @@ class HomeViewController: EmbeddingViewController {
     }
 
     private func modelDidChange(_ notification: ActiveModelDidChangeNotification) {
+        dispatchPrecondition(condition: .onQueue(.main))
         modelStatusDidChange(notification.status)
     }
 
     private func modelDidChange(_ notification: ModelDidRefreshNotification) {
+        dispatchPrecondition(condition: .onQueue(.main))
         guard case .didChange = notification.changeType else { return }
         modelStatusDidChange(notification.status)
     }
 
     private func modelDidReset(_ notification: DidResetModelNotification) {
-        showSelectModelVC()
+        dispatchPrecondition(condition: .onQueue(.main))
+        modelStatusDidChange(nil)
     }
 
     private func modelStatusDidChange(_ status: GaitModel.Status?) {
+        dispatchPrecondition(condition: .onQueue(.main))
         guard let status = status else {
             showSelectModelVC()
             return
@@ -59,7 +63,7 @@ class HomeViewController: EmbeddingViewController {
         case .ready:
             showTestingVC()
         case .failed(let reason):
-            presentTerminalError(message: reason ?? "unknown failure")
+            showErrorVC(message: reason ?? "unknown failure")
         }
     }
 
@@ -81,69 +85,35 @@ extension HomeViewController {
     private func showSelectModelVC() {
         dispatchPrecondition(condition: .onQueue(.main))
         let trainingVC = UIStoryboard.main.instantiateViewController(SelectModelViewController.self)
-        trainingVC.delegate = unifyid
-        self.embeddedVC = trainingVC
+        trainingVC.manager = unifyid
+        embeddedVC = trainingVC
     }
 
     private func showTrainingVC() {
         dispatchPrecondition(condition: .onQueue(.main))
         let trainingVC = UIStoryboard.main.instantiateViewController(TrainingViewController.self)
         trainingVC.manager = unifyid
-        self.embeddedVC = trainingVC
+        embeddedVC = trainingVC
     }
 
     func showPendingVC() {
         dispatchPrecondition(condition: .onQueue(.main))
         let pendingVC = UIStoryboard.main.instantiateViewController(PendingViewController.self)
-        pendingVC.delegate = unifyid
-        self.embeddedVC = pendingVC
+        pendingVC.manager = unifyid
+        embeddedVC = pendingVC
     }
 
     internal func showTestingVC() {
         dispatchPrecondition(condition: .onQueue(.main))
         let testingVC = UIStoryboard.main.instantiateViewController(TestingViewController.self)
         testingVC.manager = unifyid
-        self.embeddedVC = testingVC
-    }
-
-    internal func showScoresVC(_ scores: [(date: Date, score: Double)]) {
-        dispatchPrecondition(condition: .onQueue(.main))
-        let scoresVC = UIStoryboard.main.instantiateViewController(ScoresViewController.self)
-        scoresVC.scores = scores.map { ($0.date, $0.score) }
-
-        let navigationVC = UINavigationController(rootViewController: scoresVC)
-        if #available(iOS 11.0, *) {
-            navigationVC.navigationBar.prefersLargeTitles = false
-        }
-        present(navigationVC, animated: true)
+        embeddedVC = testingVC
     }
 
     internal func showErrorVC(message: String) {
         dispatchPrecondition(condition: .onQueue(.main))
-        let errorVC = UIStoryboard.main.instantiateViewController(ModelErrorViewController.self)
+        let errorVC = UIStoryboard.main.instantiateViewController(ErrorViewController.self)
         errorVC.errorMessage = message
-        self.embeddedVC = errorVC
-    }
-}
-
-extension HomeViewController: Interactor {
-    func presentPending() {
-        dispatchPrecondition(condition: .onQueue(.main))
-        self.showPendingVC()
-    }
-
-    func presentScores(_ scores: [(date: Date, score: Double)]) {
-        dispatchPrecondition(condition: .onQueue(.main))
-        showScoresVC(scores)
-    }
-
-    func presentErrorAlert(title: String, message: String, completion: (() -> Void)? = nil) {
-        dispatchPrecondition(condition: .onQueue(.main))
-        presentAlert(title: title, message: message, completion: completion)
-    }
-
-    func presentTerminalError(message: String) {
-        dispatchPrecondition(condition: .onQueue(.main))
-        showErrorVC(message: message)
+        embeddedVC = errorVC
     }
 }

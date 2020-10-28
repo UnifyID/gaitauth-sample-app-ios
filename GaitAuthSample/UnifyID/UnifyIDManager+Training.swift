@@ -24,7 +24,7 @@ extension UnifyIDManager: ModelTrainer {
         dispatchPrecondition(condition: .onQueue(.main))
 
         guard let model = self.model else {
-            interactor?.presentErrorAlert(
+            interactor?.presentAlert(
                 title: "Train Model Failed",
                 message: "Model is not initialized"
             )
@@ -35,13 +35,21 @@ extension UnifyIDManager: ModelTrainer {
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 if let error = error {
-                    self.interactor?.presentErrorAlert(
+                    self.interactor?.presentAlert(
                         title: "Train Model Failed",
                         message: error.localizedDescription
                     )
                     return
                 }
-                self.interactor?.presentPending()
+                NotificationCenter.default.post(
+                    ModelDidRefreshNotification(
+                        sender: self,
+                        date: Date(),
+                        modelID: model.id,
+                        status: .training,
+                        changeType: .didChange
+                    )
+                )
             }
         }
     }
@@ -52,14 +60,14 @@ extension UnifyIDManager: ModelTrainer {
     func addCollectedFeatures() {
         dispatchPrecondition(condition: .onQueue(.main))
         guard featureCollectionCount >= Self.minFeaturesToAdd else {
-            interactor?.presentErrorAlert(
+            interactor?.presentAlert(
                 title: "More features required",
                 message: "Please collect at least \(Self.minFeaturesToAdd) features before adding.")
             return
         }
 
         guard let model = self.model else {
-            interactor?.presentErrorAlert(
+            interactor?.presentAlert(
                 title: "Train Model Failed",
                 message: "Model is not initialized"
             )
@@ -72,7 +80,7 @@ extension UnifyIDManager: ModelTrainer {
                 model.add(items) {
                     if let error = $0 {
                         flushComplete(false)
-                        self.interactor?.presentErrorAlert(
+                        self.interactor?.presentAlert(
                             title: "Failed Adding Features",
                             message: error.localizedDescription
                         )

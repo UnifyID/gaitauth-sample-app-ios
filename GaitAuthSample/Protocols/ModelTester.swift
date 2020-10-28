@@ -24,7 +24,4 @@ protocol ModelTester: class {
     ///
     /// An error will be presented if there is no active authenticator.
     func getAuthenticatorStatus(completion: @escaping (AuthenticationResult) -> Void)
-
-    /// Presents an `AuthenticationResult`.
-    func presentAuthenticationResult(_ result: AuthenticationResult)
 }

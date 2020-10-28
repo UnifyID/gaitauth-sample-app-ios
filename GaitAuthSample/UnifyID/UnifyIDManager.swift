@@ -144,7 +144,7 @@ class UnifyIDManager: NSObject {
             guard let self = self else { return }
             switch result {
             case .failure(let error):
-                self.interactor?.presentErrorAlert(
+                self.interactor?.presentAlert(
                     title: "Failed Collecting Features",
                     message: error.localizedDescription
                 )
@@ -201,7 +201,7 @@ class UnifyIDManager: NSObject {
         dispatchPrecondition(condition: .onQueue(.main))
         guard gaitAuthenticator == nil else { return }
         guard let gaitAuth = gaitAuth, let model = model else {
-            self.interactor?.presentErrorAlert(
+            self.interactor?.presentAlert(
                 title: "Failed Inititalizing Authenticator",
                 message: "GaitAuth not initialized"
             )
@@ -224,7 +224,7 @@ class UnifyIDManager: NSObject {
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    self?.interactor?.presentErrorAlert(
+                    self?.interactor?.presentAlert(
                         title: "Authenticator Status Failed",
                         message: error.localizedDescription
                     )

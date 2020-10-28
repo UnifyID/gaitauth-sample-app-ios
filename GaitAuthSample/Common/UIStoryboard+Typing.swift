@@ -11,8 +11,10 @@ extension UIStoryboard {
         UIStoryboard(name: "Main", bundle: Bundle.main)
     }
 
-    func instantiateViewController<Controller: UIViewController>(_ for: Controller.Type, identifier: String? = nil) -> Controller {
-        let identifier = identifier ?? String(describing: Controller.self)
+    func instantiateViewController<Controller: UIViewController>(
+        _ for: Controller.Type = Controller.self,
+        identifier: String = String(describing: Controller.self)
+    ) -> Controller {
         guard let controller = instantiateViewController(withIdentifier: identifier) as? Controller else {
             preconditionFailure("Failed loading view controller with identifier \(identifier)")
         }

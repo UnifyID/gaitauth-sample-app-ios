@@ -14,7 +14,7 @@ extension UnifyIDManager: ModelRefresher {
     func refreshModel() {
         dispatchPrecondition(condition: .onQueue(.main))
         guard let model = model else {
-            interactor?.presentErrorAlert(
+            interactor?.presentAlert(
                 title: "Failed refreshing model",
                 message: "Model not set"
             )
@@ -26,7 +26,7 @@ extension UnifyIDManager: ModelRefresher {
                 guard let self = self else { return }
                 switch result {
                 case .failure(let error):
-                    self.interactor?.presentErrorAlert(
+                    self.interactor?.presentAlert(
                         title: "Failed Refreshing Model",
                         message: error.localizedDescription
                     )

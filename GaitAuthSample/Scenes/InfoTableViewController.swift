@@ -120,4 +120,8 @@ class InfoTableViewController: UITableViewController {
         guard indexPath.section == 2, indexPath.row < disclosures.count else { return }
         UIApplication.shared.open(disclosures[indexPath.row].url)
     }
+
+    @IBAction private func dismissController() {
+        dismiss(animated: true)
+    }
 }

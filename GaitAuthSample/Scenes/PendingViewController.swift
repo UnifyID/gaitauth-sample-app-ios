@@ -13,7 +13,7 @@ class PendingViewController: UIViewController {
     @IBOutlet weak var refreshedLabel: UILabel!
     @IBOutlet weak var refreshButton: BlockButton!
 
-    unowned var delegate: ModelRefresher = unifyid
+    unowned var manager: ModelRefresher = unifyid
 
     lazy private var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -75,6 +75,6 @@ class PendingViewController: UIViewController {
                 self.refreshAnimation.play()
             }
         )
-        delegate.refreshModel()
+        manager.refreshModel()
     }
 }
