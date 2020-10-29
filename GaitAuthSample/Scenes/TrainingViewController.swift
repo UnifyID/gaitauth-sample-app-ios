@@ -39,18 +39,43 @@ class TrainingViewController: UIViewController {
     @IBOutlet weak var collectionButton: UIButton!
     @IBOutlet weak var countLabel: UILabel!
 
+    private var featureCountObserver: NSObjectProtocol? {
+        didSet {
+            if let oldValue = oldValue, oldValue.hash != featureCountObserver?.hash {
+                NotificationCenter.default.removeObserver(oldValue as Any)
+            }
+        }
+    }
+
+    private var appActiveObserver: NSObjectProtocol? {
+        didSet {
+            if let oldValue = oldValue, oldValue.hash != appActiveObserver?.hash {
+                NotificationCenter.default.removeObserver(oldValue as Any)
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         animationView.loopMode = .loop
         animationView.animationSpeed = 1.25
         isCollecting = manager.isCollectingFeatures
         featureCollectionCount = 0
+
+        appActiveObserver = NotificationCenter.default.addObserver(
+            forName: UIApplication.didBecomeActiveNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.animationView.animating = self.isCollecting
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        NotificationCenter.default.addObserver(
+        featureCountObserver = NotificationCenter.default.addObserver(
             for: DidCollectFeaturesNotification.self,
             queue: .main
         ) { [weak self] in
@@ -60,7 +85,7 @@ class TrainingViewController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+        featureCountObserver = nil
     }
 
     @IBAction func toggleCollection() {
@@ -85,5 +110,10 @@ class TrainingViewController: UIViewController {
     @IBAction func addCollectedFeatures() {
         dispatchPrecondition(condition: .onQueue(.main))
         manager.addCollectedFeatures()
+    }
+
+    deinit {
+        appActiveObserver = nil
+        featureCountObserver = nil
     }
 }

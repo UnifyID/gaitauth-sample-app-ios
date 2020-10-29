@@ -20,10 +20,26 @@ class TestingViewController: UIViewController {
     @IBOutlet weak var endTestButton: UIButton!
     @IBOutlet weak var statusLabel: UILabel!
 
+    private var appActiveObserver: NSObjectProtocol? {
+        didSet {
+            if let oldValue = oldValue, oldValue.hash != appActiveObserver?.hash {
+                NotificationCenter.default.removeObserver(oldValue as Any)
+            }
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         animationView.loopMode = .loop
         animationView.animationSpeed = 1.25
+        appActiveObserver = NotificationCenter.default.addObserver(
+            forName: UIApplication.didBecomeActiveNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.animationView.animating = self.manager.isAuthenticatorActive
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -79,5 +95,9 @@ class TestingViewController: UIViewController {
         scoresVC.scores = scores
         scoresVC.status = result.status.description
         present(scoresVC, animated: true)
+    }
+
+    deinit {
+        appActiveObserver = nil
     }
 }
