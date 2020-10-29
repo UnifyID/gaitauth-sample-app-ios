@@ -5,6 +5,7 @@
 ### Prerequisites
 
 * Xcode 12.0+
+* Ruby 2.6+ & Bundler 2.0.0+
 * CocoaPods 1.10.0+
 * A UnifyID SDK Key
 
@@ -13,10 +14,15 @@
 1. Install the locked CocoaPod dependencies.
 
     ```shell
-    pod install --repo-update
+    bundle exec pod install --repo-update
     ```
 
 2. Open the workspace file `GaitAuthSample.xcworkspace`.
+
+    ```shell
+    open GaitAuthSample.xcworkspace
+    ```
+
 3. Build and run the `GaitAuthSample` scheme.
 
 ### Using the app
