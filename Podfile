@@ -1,5 +1,7 @@
 platform :ios, '10.0'
 
+ensure_bundler! '~> 2.0'
+
 target 'GaitAuthSample' do
   use_frameworks!
 
